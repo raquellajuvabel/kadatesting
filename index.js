@@ -31,10 +31,10 @@ app.get('/world', (req, res) => {
       display: flex;
       justify-content: center;
       align-items: center;
-      color: red;
+      color: pink;
       font-size: 80px;
     ">
-      💖
+      ʕっ•ᴥ•ʔっ
     </body>
   `);
 });
