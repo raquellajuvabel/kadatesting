@@ -14,14 +14,29 @@ app.use((err,req,res,next)=>{
     res.send("Error Occurred");
 });
 
-app.get('/',(req,res)=>{
-    res.send('Hello Raquella!');
+app.get('/', (req, res) => {
+  res.send('<h1 style="color: pink;">Hello Raquella!</h1>');
 });
-
 
 app.get (`/say/:greeting`, (req,res) => {
     const {greeting} = req.params;
     res.send(greeting);
+});
+
+app.get('/world', (req, res) => {
+  res.send(`
+    <body style="
+      margin: 0;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: red;
+      font-size: 80px;
+    ">
+      💖
+    </body>
+  `);
 });
 
 app.listen(3000);
