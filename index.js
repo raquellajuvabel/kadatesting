@@ -53,9 +53,11 @@ app.use('/notes', noteRouter);
 /// KONEKSI DENGAN PROTOKOL +srv YANG BENAR
 const uri = "mongodb://raquellaraquellaa_db_user:admin123@ac-ubalf4g-shard-00-00.p8srec1.mongodb.net:27017,ac-ubalf4g-shard-00-01.p8srec1.mongodb.net:27017,ac-ubalf4g-shard-00-02.p8srec1.mongodb.net:27017/test?ssl=true&replicaSet=atlas-3z36w4-shard-0&authSource=admin";
 
-mongoose.connect(uri)
+mongoose.connect(uri,{serverSelectionTimeoutMS:5000})
   .then(() => console.log("Berhasil terhubung ke Cluster Baru!"))
   .catch(err => console.error("Masih error login:", err));
+
+
 app.use((req,res,next)=>{
     if(false){
         next(new Error('Not Authorized'));
