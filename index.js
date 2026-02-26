@@ -28,18 +28,7 @@ mongoose.connect(uri)
 // next();
 //});
 
-app.use((req,res,next)=>{
-    if(false){
-        next(new Error('Not Authorized'));
-    return;
-}
-    next();
-});
 
-app.use((err,req,res,next)=>{
-  console.log(err)
-    res.send("Error Occurred");
-});
 
 app.get('/', (req, res) => {
   res.send('<h1 style="color: pink;">Hello Raquella!</h1>');
@@ -66,4 +55,29 @@ app.get('/world', (req, res) => {
   `);
 });
 
-app.listen(3000);
+
+app.use((req,res,next)=>{
+    if(false){
+        next(new Error('Not Authorized'));
+    return;
+}
+    next();
+});
+
+app.use((err,req,res,next)=>{
+  console.log(err)
+    res.send("Error Occurred");
+});
+
+
+app.listen(3000,()=>{
+  console.log(`Server running on port 3000`);
+});//
+
+//const PORT = process.env.PORT || 3000;
+//app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+
+// const PORT = process.env.PORT || 3000;
+// app.listen(PORT, () => {
+//     console.log(`Server running on port ${PORT}`);
+// });
