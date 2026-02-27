@@ -26,7 +26,7 @@ app.use(cors());
 ====================== */
 
 app.get("/", (req, res) => {
-  res.send('<h1 style="color: pink;">Hello Raquella!</h1>');
+  res.send('Hello Raquella!');
 });
 
 app.get("/say/:greeting", (req, res) => {
