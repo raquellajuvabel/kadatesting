@@ -26,14 +26,14 @@ router.get('/:id', async (req, res, next) => {
 
 // CREATE NOTE
 router.post('/', async (req, res, next) => {
-  const { title, content } = req.body;
+  const { author,title, content } = req.body;
 
   if (!title || !content) {
     return res.status(400).json({ message: "Title and content are required" });
   }
 
   try {
-    const note = await Post.create({ title, content });
+    const note = await Post.create({ author,title, content });
     res.status(201).json(note);
   } catch (e) {
     next(e);
@@ -42,13 +42,13 @@ router.post('/', async (req, res, next) => {
 
 // UPDATE NOTE
 router.put('/:id', async (req, res, next) => {
-  const { title, content } = req.body;
+  const { author, title, content } = req.body;
 
   try {
     // { new: true } agar mengembalikan data yang sudah diupdate
     const note = await Post.findByIdAndUpdate(
       req.params.id, 
-      { title, content }, 
+      { author, title, content }, 
       { new: true }
     );
     if (!note) return res.status(404).json({ message: "Note not found" });
