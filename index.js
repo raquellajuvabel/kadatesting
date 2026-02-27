@@ -1,38 +1,24 @@
 import express from "express";
-import noteRouter from './routes/notes.js';
+import mongoose from "mongoose";
+import noteRouter from "./routes/notes.js";
 
-import mongoose from 'mongoose';
-// import { Post } from './models/index.js';
+const app = express();
+app.use(express.json());
 
+/* ======================
+   ROUTES
+====================== */
 
-// Post kini tersedia untuk digunakan langsung
-
-const app = express()
-app.use(express.json())
-
-
-//Post available for Immediate use
-
-// app.use((req,res,next)=> {
-// if (!true(req)){
-// next(newError('Not Authorized'));
-// return;
-// }
-// next();
-//});
-
-
-
-app.get('/', (req, res) => {
+app.get("/", (req, res) => {
   res.send('<h1 style="color: pink;">Hello Raquella!</h1>');
 });
 
-app.get (`/say/:greeting`, (req,res) => {
-    const {greeting} = req.params;
-    res.send(greeting);
+app.get("/say/:greeting", (req, res) => {
+  const { greeting } = req.params;
+  res.send(greeting);
 });
 
-app.get('/world', (req, res) => {
+app.get("/world", (req, res) => {
   res.send(`
     <body style="
       margin: 0;
@@ -48,38 +34,42 @@ app.get('/world', (req, res) => {
   `);
 });
 
-app.use('/notes', noteRouter);
+app.use("/notes", noteRouter);
 
-/// KONEKSI DENGAN PROTOKOL +srv YANG BENAR
-const uri = "mongodb://raquellaraquellaa_db_user:admin123@ac-ubalf4g-shard-00-00.p8srec1.mongodb.net:27017,ac-ubalf4g-shard-00-01.p8srec1.mongodb.net:27017,ac-ubalf4g-shard-00-02.p8srec1.mongodb.net:27017/test?ssl=true&replicaSet=atlas-3z36w4-shard-0&authSource=admin";
+/* ======================
+   MIDDLEWARE (AUTH / ETC)
+====================== */
 
-mongoose.connect(uri,{serverSelectionTimeoutMS:5000})
-  .then(() => console.log("Berhasil terhubung ke Cluster Baru!"))
-  .catch(err => console.error("Masih error login:", err));
-
-
-app.use((req,res,next)=>{
-    if(false){
-        next(new Error('Not Authorized'));
-    return;
-}
-    next();
+app.use((req, res, next) => {
+  // contoh auth (sementara lolos semua)
+  next();
 });
 
-app.use((err,req,res,next)=>{
-  console.log(err)
-    res.send("Error Occurred");
+/* ======================
+   ERROR HANDLER (PALING BAWAH)
+====================== */
+
+app.use((err, req, res, next) => {
+  console.error(err);
+  res.status(500).send("Error Occurred");
 });
 
+/* ======================
+   DATABASE
+====================== */
 
-app.listen(3000,()=>{
-  console.log(`Server running on port 3000`);
-});//
+const uri =
+  "mongodb://raquellaraquellaa_db_user:admin123@ac-ubalf4g-shard-00-00.p8srec1.mongodb.net:27017,ac-ubalf4g-shard-00-01.p8srec1.mongodb.net:27017,ac-ubalf4g-shard-00-02.p8srec1.mongodb.net:27017/test?ssl=true&replicaSet=atlas-3z36w4-shard-0&authSource=admin";
 
-//const PORT = process.env.PORT || 3000;
-//app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+mongoose
+  .connect(uri, { serverSelectionTimeoutMS: 5000 })
+  .then(() => console.log("Berhasil terhubung ke MongoDB"))
+  .catch((err) => console.error("Mongo error:", err));
 
-// const PORT = process.env.PORT || 3000;
-// app.listen(PORT, () => {
-//     console.log(`Server running on port ${PORT}`);
-// });
+/* ======================
+   LISTEN (PALING TERAKHIR)
+====================== */
+
+app.listen(3000, () => {
+  console.log("Server running on port 3000");
+});
