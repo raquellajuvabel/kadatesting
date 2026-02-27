@@ -12,7 +12,7 @@ mongoose
   .then(() => console.log("✅ Berhasil terhubung ke MongoDB"))
   .catch((err) => {
     console.error("❌ Mongo error:", err.message);
-    process.exit(1); 
+    // process.exit(1); 
   });
   
 app.use(express.json());
