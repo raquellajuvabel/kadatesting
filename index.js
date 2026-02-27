@@ -1,15 +1,19 @@
 import express from "express";
 import mongoose from "mongoose";
 import noteRouter from "./routes/notes.js";
-
+import dotenv from "dotenv";
+dotenv.config();
 const app = express();
-const uri =
-  "mongodb+srv://raquellaraquellaa_db_user:admin123@ac-ubalf4g-shard-00-00.p8srec1.mongodb.net:27017,ac-ubalf4g-shard-00-01.p8srec1.mongodb.net:27017,ac-ubalf4g-shard-00-02.p8srec1.mongodb.net:27017/test?ssl=true&replicaSet=atlas-3z36w4-shard-0&authSource=admin";
+const uri = process.env.MONGO_URI;
 
+console.log(uri);
 mongoose
-  .connect(uri, { serverSelectionTimeoutMS: 5000 })
-  .then(() => console.log("Berhasil terhubung ke MongoDB"))
-  .catch((err) => console.error("Mongo error:", err));
+  .connect(uri)
+  .then(() => console.log("✅ Berhasil terhubung ke MongoDB"))
+  .catch((err) => {
+    console.error("❌ Mongo error:", err.message);
+    process.exit(1); 
+  });
   
 app.use(express.json());
 
