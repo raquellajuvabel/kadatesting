@@ -17,9 +17,13 @@ mongoose
     console.error("❌ Mongo error:", err.message);
     // process.exit(1); 
   });
-  
+
+app.use(cors({
+  origin: "*",
+  methods: ["GET","POST","PUT","DELETE"],
+}));
 app.use(express.json());
-app.use(cors());
+
 
 /* ======================
    ROUTES
