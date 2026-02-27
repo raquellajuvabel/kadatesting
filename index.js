@@ -4,7 +4,8 @@ import noteRouter from "./routes/notes.js";
 import dotenv from "dotenv";
 dotenv.config();
 const app = express();
-const uri = process.env.MONGO_URI;
+// const uri = process.env.MONGO_URI;
+const uri = "mongodb+srv://raquellaraquellaa_db_user:admin123@cluster0.p8srec1.mongodb.net/?appName=Cluster0"
 
 console.log(uri);
 mongoose
