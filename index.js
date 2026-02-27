@@ -5,7 +5,7 @@ import dotenv from "dotenv";
 dotenv.config();
 const app = express();
 // const uri = process.env.MONGO_URI;
-const uri = "mongodb+srv://raquellaraquellaa_db_user:admin123@cluster0.p8srec1.mongodb.net/?appName=Cluster0"
+const uri = "mongodb://raquellaraquellaa_db_user:admin123@ac-ubalf4g-shard-00-00.p8srec1.mongodb.net:27017,ac-ubalf4g-shard-00-01.p8srec1.mongodb.net:27017,ac-ubalf4g-shard-00-02.p8srec1.mongodb.net:27017/test?ssl=true&replicaSet=atlas-3z36w4-shard-0&authSource=admin"
 
 console.log(uri);
 mongoose
