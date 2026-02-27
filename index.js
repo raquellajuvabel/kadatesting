@@ -2,6 +2,8 @@ import express from "express";
 import mongoose from "mongoose";
 import noteRouter from "./routes/notes.js";
 import dotenv from "dotenv";
+import cors from "cors";
+
 dotenv.config();
 const app = express();
 // const uri = process.env.MONGO_URI;
@@ -17,6 +19,7 @@ mongoose
   });
   
 app.use(express.json());
+app.use(cors());
 
 /* ======================
    ROUTES
