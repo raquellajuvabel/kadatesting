@@ -24,7 +24,16 @@ app.use(cors({
   methods: ["GET","POST","PUT","DELETE"],
 }));
 app.use(express.json());
-
+app.use((req, res, next) => {
+  // Sekarang 'req' bisa diakses karena berada di dalam fungsi callback
+  console.log("--- DEBUGGER ---");
+  console.log("Method:", req.method);
+  console.log("Path:", req.path);
+  console.log("Auth Header:", req.headers.authorization); 
+  console.log("----------------");
+  
+  next(); // JANGAN LUPA panggil next() agar tidak hang
+});
 
 /* ======================
    ROUTES
@@ -54,10 +63,7 @@ app.get("/world", (req, res) => {
     </body>
   `);
 });
-app.use((req, res, next) => {
-  console.log("Cek Header Auth:", req.headers.authorization);
-  next();
-});
+
 app.use("/notes", noteRouter);
 app.use("/user", userRouter);
 
