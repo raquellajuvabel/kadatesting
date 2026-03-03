@@ -54,7 +54,10 @@ app.get("/world", (req, res) => {
     </body>
   `);
 });
-
+app.use((req, res, next) => {
+  console.log("Cek Header Auth:", req.headers.authorization);
+  next();
+});
 app.use("/notes", noteRouter);
 app.use("/user", userRouter);
 
