@@ -25,7 +25,7 @@ router.get('/:id', async (req, res, next) => {
 });
 
 // CREATE NOTE
-router.post('/', console.log(req.headers.authorization), verifyToken, async (req, res, next) => {
+router.post('/', verifyToken, async (req, res, next) => {
   const { author,title, content } = req.body;
 
   if (!title || !content) {

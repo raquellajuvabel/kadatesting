@@ -54,7 +54,11 @@ app.get("/world", (req, res) => {
     </body>
   `);
 });
-
+app.use((req, res, next) => {
+  console.log("Headers yang diterima:", req.headers);
+  console.log("Auth Header:", req.headers.authorization);
+  next();
+});
 app.use("/notes", noteRouter);
 app.use("/user", userRouter);
 
