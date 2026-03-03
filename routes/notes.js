@@ -3,6 +3,12 @@ import { Post } from '../models/index.js'; // Pastikan path ini benar
 import { verifyToken } from "../middleware/auth.js";
 const router = Router();
 
+app.use((req, res, next) => {
+  console.log("Headers yang diterima:", req.headers);
+  console.log("Auth Header:", req.headers.authorization);
+  next();
+});
+
 // GET ALL NOTES
 router.get('/', async (req, res, next) => {
   try {
