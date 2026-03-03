@@ -29,7 +29,7 @@ app.use((req, res, next) => {
   console.log("--- DEBUGGER ---");
   console.log("Method:", req.method);
   console.log("Path:", req.path);
-  console.log("Auth Header:", req.headers.authorization); 
+  console.log("Auth Header:", req.headers); 
   console.log("----------------");
   
   next(); // JANGAN LUPA panggil next() agar tidak hang
