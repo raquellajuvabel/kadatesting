@@ -4,7 +4,7 @@ export const verifyToken = (req, res, next) => {
   // Ambil token dari header 'Authorization'
   const authHeader = req.headers.authorization;
   const token = authHeader && authHeader.split(" ")[1]; // Format: "Bearer <token>"
-  console.log(token)
+  console.log(authHeader)
 
   if (!token) return res.status(401).json({ message: "Akses ditolak, token hilang" });
 
