@@ -1,5 +1,6 @@
 import express from "express";
 import {User} from "../models/index.js";
+import jwt from "jsonwebtoken";
 
 const router = express.Router();
 
@@ -89,8 +90,17 @@ router.post("/login", async (req, res) => {
       });
     }
 
+    // 3. BUAT JWT
+  // Payload: data yang mau disimpan di token (jangan data sensitif seperti password)
+  const token = jwt.sign(
+    { id: user._id, email: user.email }, 
+    process.env.JWT_SECRET, 
+    { expiresIn: process.env.JWT_EXPIRES_IN }
+  );
+
     res.json({
       message: "Login berhasil",
+      token,
       user: {
         id: user._id,
         name: user.name,
