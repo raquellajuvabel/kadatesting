@@ -12,7 +12,7 @@ const uri = "mongodb://raquellaraquellaa_db_user:admin123@ac-ubalf4g-shard-00-00
 const uri1 = "mongodb+srv://raquellaraquellaa_db_user:admin123@cluster0.p8srec1.mongodb.net/?appName=Cluster0"
 console.log(uri1);
 mongoose
-  .connect(uri)
+  .connect(uri1)
   .then(() => console.log("✅ Berhasil terhubung ke MongoDB"))
   .catch((err) => {
     console.error("❌ Mongo error:", err.message);
