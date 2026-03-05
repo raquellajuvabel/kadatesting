@@ -93,7 +93,7 @@ export const checkStatus = async (req,res) => {
         const statusResponse = await coreApi.transaction.status(order_id);
 
         res.status(200).json({
-            order_id: statusResponse.order.id,
+            order_id: statusResponse.order_id,
             transaction_status: statusResponse.transaction_status,
             payment_type: statusResponse.payment_type,
             fraud_status: statusResponse.fraud_status
