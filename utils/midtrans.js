@@ -1,3 +1,4 @@
+import "dotenv/config";
 import midtransClient from "midtrans-client"
 
 const snap = new midtransClient.Snap({

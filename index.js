@@ -4,6 +4,8 @@ import noteRouter from "./routes/notes.js";
 import dotenv from "dotenv";
 import cors from "cors";
 import userRouter from "./routes/user.js";
+import {createTransaction} from "./utils/midtrans.js"
+import paymentRoutes from "./routes/payment.js";
 
 dotenv.config();
 const app = express();
@@ -66,6 +68,7 @@ app.get("/world", (req, res) => {
 
 app.use("/notes", noteRouter);
 app.use("/user", userRouter);
+app.use("/payment", paymentRoutes);
 
 
 /* ======================

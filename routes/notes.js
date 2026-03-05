@@ -6,7 +6,7 @@ const router = Router();
 
 
 // GET ALL NOTES
-router.get('/', async (req, res, next) => {
+router.get('/',async (req, res, next) => {
   try {
     const notes = await Post.find(); // Mengambil semua data dari MongoDB
     res.json(notes);
