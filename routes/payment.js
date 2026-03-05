@@ -1,8 +1,34 @@
-import {Router} from "express";
-import { createTransaction } from "../utils/midtrans.js";
+import express from "express";
+import {
+  createTransaction,
+  handleNotification,
+  checkStatus
+} from "../midtrans.js";
+//
+const router = express.Router();
 
-const router = Router();
+// ===============================
+// Endpoint buat transaksi
+// ===============================
+router.post("/create", createTransaction);
 
-router.post ("/checkout", createTransaction);
+// ===============================
+// Endpoint notifikasi dari Midtrans
+// ===============================
+router.post("/notification", handleNotification);
+
+// ===============================
+// Endpoint untuk cek status transaksi (opsional)
+// ===============================
+router.get("/status/:order_id", checkStatus);
 
 export default router;
+
+// import {Router} from "express";
+// import { createTransaction } from "../utils/midtrans.js";
+
+// const router = Router();
+
+// router.post ("/checkout", createTransaction);
+
+// export default router;

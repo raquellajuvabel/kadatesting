@@ -49,6 +49,59 @@ export const createTransaction = async (req, res) => {
     }
 };
 
+// ======= Handle Notification====
 
+export const handleNotification = async (req,res)=> {
+    try{
+        const notification = req.body;
+        const statusResponse = await coreApi.transaction.notification(notification);
+        const orderId = statusResponse.order_id;
+        const transactionStatus = statusResponse.fraud_status;
+        const paymentType = statusResponse.payment_type;
+
+        console.log("Order ID", orderId);
+        console.log("Transaction Status:", transactionStatus);
+
+        if (transactionStatus === "capture"){
+            if (fraudStatus=== "accept"){
+                console.log("Pembayaran berhasil (capture)");
+            }
+        } else if (transactionStatus === "settlement"){
+            console.log("Pembayaran berhasil (settlement)");
+        } else if (transactionStatus === "pending"){
+            console.log("Menunggu Pembayaran");
+        } else if (
+            transactionStatus === "cancel"||
+            transactionStatus === "deny" ||
+            transactionStatus === "expire"
+        ){
+            console.log("Pembayaran Gagal");
+        }
+   
+        res.status(200).json ({message:"Notification handled", status: statusResponse});
+
+    }catch (error){
+        console.error("Error handleNotification:", error);
+        res.status(500).json ({message: "Error handling notification"});
+    }
+};
+
+export const checkStatus = async (req,res) => {
+    try{
+        const {orderId} = req.params;
+
+        const statusResponse = await coreApi.transaction.status(orderId);
+
+        res.status(200).json({
+            order_id: statusResponse.order.id,
+            transaction_status: statusResponse.transaction_status,
+            payment_type: statusResponse.payment_type,
+            fraud_status: statusResponse.fraud_status
+        });
+    } catch (error){
+        console.error("Error checkStatus:",error);
+        res.status(500).json ({message:"Gagal cek status transaksi"});
+    }
+};
 
 
